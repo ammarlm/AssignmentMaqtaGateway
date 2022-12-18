@@ -24,6 +24,7 @@ namespace AssignmentMaqtaGateway3.Model
         [MaxLength(14)]
         public string PhoneNumber { get; set; }
         [Required]
+        [EmailAddress]
         [MaxLength(255)]
         public string Email { get; set; }
         //[Required]

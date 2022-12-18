@@ -39,6 +39,10 @@ namespace AssignmentMaqtaGateway3.Controllers
         [HttpPost]
         public async Task<IActionResult> PostCreateEmployee([FromBody] Employee employee)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             await employeeRepository.InsertEmployee(employee);
 
             return Ok(employee);

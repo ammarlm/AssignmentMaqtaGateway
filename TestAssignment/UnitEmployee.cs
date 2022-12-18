@@ -94,10 +94,6 @@ namespace TestAssignment
         [Fact]
         public async Task CreateEmployee()
         {
-
-            Random rnd = new Random();
-            int num = rnd.Next(100);
-
             // Act
             var okResult = await employeesController.PostCreateEmployee(new Employee()
             {
@@ -109,6 +105,23 @@ namespace TestAssignment
             // Assert
             Assert.IsType<OkObjectResult>(okResult as OkObjectResult);
 
+        }
+        [Fact]
+        public async Task CreateEmployeeWithWrongEmail()
+        {
+
+            employeesController.ModelState.AddModelError("Email", "Email must be valid email");
+            var employee = new Employee()
+            {
+                Address = "Test",
+                Email = "ammar",
+                FullName = "Test",
+                PhoneNumber = "0987654321"
+            };
+            // Act
+            var badResult = await employeesController.PostCreateEmployee(employee);
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(badResult);
         }
 
         [Fact]
